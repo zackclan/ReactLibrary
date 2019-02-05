@@ -1,32 +1,79 @@
-.App {
-  text-align: center;
-}
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.header{
+    display:grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    align-items: center;
+    border-bottom: 2px solid gray;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.header p{
+    font-size: 25px;
+    font-weight: 100;
+    padding-top:15px;
+    
 }
-
-.App-link {
-  color: #61dafb;
+form{
+    max-width: 50vw;
+    border:2px solid gray;
+    background: rgba(206, 202, 202, 0.199);
 }
+.addform{
+    background: rgb(236, 236, 236);
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+}
+.checkbox{
+    margin:0;
+    padding:0;
+    padding-left:20px;
+}
+form > *{
+    padding:20px;
+}
+.addbook{
+    margin:20px;
+}
+.library{
+    display: grid;
+    margin: 200px auto;
+    max-width: 50vw;
+    border:1px solid black;
+    border-radius: 5px;
+    grid-template-columns: 1fr; 
+}
+.example-book > *{
+    margin:0;
+    border-right: 1px solid rgba(206, 202, 202, 0.363);
+    padding-right:8px;
+}
+.example-book button{
+    margin-right:8px;
+}
+.example-book{
+    display:grid;
+    grid-template-columns: 5fr 3fr 1fr 1fr 1fr;
+    padding:10px 0 10px 10px;
+    grid-gap:10px;
+    align-items: center;
+    border-bottom: 1px solid rgba(206, 202, 202, 0.363);
+    
+}
+.top{
+    grid-column: 1 / -1;
+    background: rgba(206, 202, 202, 0.199);
+    border-bottom:1px solid rgba(206, 202, 202, 0.363);
+    padding:5px;
+}
+.alert{
+    text-align: center;
+    display: none;
+}
+.example-book:nth-child(odd){
+    background:rgba(206, 202, 202, 0.199);
+    
+}
+@media (max-width: 1200px){
+    .library{
+        max-width: 90vw;
+        margin:30px auto;
+    }
 }
