@@ -34,6 +34,16 @@ class App extends Component {
         author:"George R.R. Martin",
         pages:"756",
         isRead:true,
+      },{
+        title:"The Fellowship of the Rings",
+        author:"J.R.R. Tolkien",
+        pages:"621",
+        isRead:false,
+      },{
+        title:"Foundation",
+        author:"Isaac Asimov",
+        pages:"421",
+        isRead:true,
       }],
       value:{
         pages:"",
