@@ -52,8 +52,12 @@ class App extends Component {
         isRead:false,
       },
     }
+    this.loadName = React.createRef();
+    this.name = React.createRef();
     this.handleChange = this.handleChange.bind(this)
     this.addBook = this.addBook.bind(this)
+    this.saveLibrary = this.saveLibrary.bind(this)
+    this.loadLibrary = this.loadLibrary.bind(this)
   }
 
   handleChange(event){
@@ -69,6 +73,51 @@ class App extends Component {
     let library = [...this.state.myLibrary]
     library[index].isRead = library[index].isRead? false : true;
     this.setState({myLibrary:library})
+  }
+
+  loadLibrary(event) {
+    event.preventDefault();
+    fetch(`https://fast-ridge-91555.herokuapp.com/library/${this.loadName.current.value}`, {
+    method:'GET',
+    }).then(res => {
+      return res.json()
+    }).then((data) => {
+      this.setState({myLibrary: data.library})
+    })
+    .catch(e => {
+        console.log(e)
+    })
+  }
+
+  saveLibrary(event) {
+    event.preventDefault()
+    fetch(`https://fast-ridge-91555.herokuapp.com/library/${this.name.current.value}`, {
+      method:'DELETE',
+    }).then(() => {
+      this.state.myLibrary.map(x => {
+        fetch('https://fast-ridge-91555.herokuapp.com/library', {
+          method: 'POST',
+          headers: {
+            'Content-Type': "application/json"
+          },
+          body: JSON.stringify({
+            title: x.title,
+            author: x.author,
+            pages: x.pages,
+            isRead: x.isRead,
+            _creator: this.name.current.value,
+          })
+
+        }).then(res => res.json())
+          .then(response => console.log('success:', JSON.stringify(response)))
+          .catch(e => console.log(e))
+      })
+    })
+    
+    
+  }
+  handleFormSubmit(e) {
+    e.preventDefault()
   }
 
   deleteEntry(index){
@@ -102,6 +151,42 @@ class App extends Component {
         </div>
         <div class="library">
           <div class="top">
+            <button class="save-library btn btn-primary" data-toggle="modal" data-target="#save-modal">Save Library</button>
+            <div class="modal fade" id="save-modal" tabindex="-1" role="dialog" aria-labelledby="saveModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Enter name you'd like to save library as</h5>
+                  </div>
+                  <div class="modal-body">
+                    <form onSubmit={this.handleFormSubmit}>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="save-name" ref={this.name}/>
+                      </div>
+                      <div onClick={this.saveLibrary}class="btn btn-primary" type="submit" data-dismiss="modal" id="hidePopUpBtn">Save</div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="load-library btn btn-primary" data-toggle="modal" data-target="#load-modal">Load Library</button>
+            <div class="modal fade" id="load-modal" tabindex="-1" role="dialog" aria-labelledby="loadModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Enter name of saved library</h5>
+                  </div>
+                  <div class="modal-body">
+                    <form onSubmit={this.handleFormSubmit}>
+                      <div class="form-group">
+                        <input type="text" class="form-control" id="save-name" ref={this.loadName} />
+                      </div>
+                      <div onClick={this.loadLibrary} class="btn btn-primary" type="submit" data-dismiss="modal" id="hidePopUpBtn">Load</div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
             <button class="btn btn-primary dropdown-toggle" type="button" id="bookform" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Add a book
                 </button>

@@ -16,12 +16,12 @@
     
 }
 form{
-    max-width: 50vw;
-    border:2px solid gray;
-    background: rgba(206, 202, 202, 0.199);
+    
 }
 .addform{
     background: rgb(236, 236, 236);
+    max-width: 50vw;
+    border:2px solid gray;
 
 }
 .checkbox{
@@ -29,7 +29,7 @@ form{
     padding:0;
     padding-left:20px;
 }
-form > *{
+.addform > *{
     padding:20px;
 }
 .addbook{
@@ -67,6 +67,9 @@ form > *{
     background: rgba(206, 202, 202, 0.199);
     border-bottom:1px solid rgba(206, 202, 202, 0.363);
     padding:5px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-gap:30px;
 }
 .alert{
     text-align: center;
